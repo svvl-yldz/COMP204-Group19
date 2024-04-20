@@ -58,8 +58,9 @@ class GameGrid:
          stddraw.line(x, start_y, x, end_y)
       for y in np.arange(start_y + 1, end_y, 1):  # horizontal inner lines
          stddraw.line(start_x, y, end_x, y)
-      stddraw.setPenRadius()  # reset the pen radius to its default value            
-      
+      stddraw.setFontSize(25)
+      stddraw.setPenColor(Color(255, 255, 255))
+      stddraw.setPenColor(Color(255, 255, 255))
    # Method for drawing the boundaries around the game grid 
    def draw_boundaries(self):
       # draw a bounding box around the game grid as a rectangle
