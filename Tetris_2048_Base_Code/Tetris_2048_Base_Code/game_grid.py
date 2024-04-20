@@ -17,10 +17,10 @@ class GameGrid:
       # the game_over flag shows whether the game is over or not
       self.game_over = False
       # set the color used for the empty grid cells
-      self.empty_cell_color = Color(42, 69, 99)
+      self.empty_cell_color = Color(207,127,46)
       # set the colors used for the grid lines and the grid boundaries
-      self.line_color = Color(0, 100, 200) 
-      self.boundary_color = Color(0, 100, 200)
+      self.line_color = Color(227,50,128)
+      self.boundary_color = Color(0,0,0)
       # thickness values used for the grid lines and the boundaries
       self.line_thickness = 0.002
       self.box_thickness = 10 * self.line_thickness
@@ -31,11 +31,11 @@ class GameGrid:
       stddraw.clear(self.empty_cell_color)
       # draw the game grid
       self.draw_grid()
-      # draw the current/active tetromino if it is not None (the case when the 
+      # draw the current/active tetromino if it is not None (the case when the
       # game grid is updated)
       if self.current_tetromino is not None:
          self.current_tetromino.draw()
-      # draw a box around the game grid 
+      # draw a box around the game grid
       self.draw_boundaries()
       # show the resulting drawing with a pause duration = 250 ms
       stddraw.show(250)
@@ -60,7 +60,8 @@ class GameGrid:
          stddraw.line(start_x, y, end_x, y)
       stddraw.setFontSize(25)
       stddraw.setPenColor(Color(255, 255, 255))
-      stddraw.setPenColor(Color(255, 255, 255))
+
+
    # Method for drawing the boundaries around the game grid 
    def draw_boundaries(self):
       # draw a bounding box around the game grid as a rectangle
@@ -75,6 +76,10 @@ class GameGrid:
 
    # Method used for checking whether the grid cell with given row and column 
    # indexes is occupied by a tile or empty
+
+
+
+
    def is_occupied(self, row, col):
       # considering newly entered tetrominoes to the game grid that may have 
       # tiles with position.y >= grid_height
