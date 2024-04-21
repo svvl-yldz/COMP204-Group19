@@ -1,8 +1,9 @@
 import lib.stddraw as stddraw  # stddraw is used as a basic graphics library
+from Tetris_2048_Base_Code.Tetris_2048_Base_Code.tetromino import Tetromino
 from lib.color import Color # used for coloring the game grid
 from point import Point  # used for tile positions
 import numpy as np  # fundamental Python module for scientific computing
-
+import random
 # Class used for modelling the game grid
 class GameGrid:
 	# Constructor for creating the game grid based on the given arguments
