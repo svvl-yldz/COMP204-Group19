@@ -24,22 +24,23 @@ class GameGrid:
       # thickness values used for the grid lines and the boundaries
       self.line_thickness = 0.002
       self.box_thickness = 10 * self.line_thickness
+      self.next_tetromino = None  # hold the next tetromino
+      self.generate_next_tetromino()  # creating the next tetromino when the game starts #**
 
       def generate_next_tetromino(self):  # **
          # its randomly generates and returns a new tetromino which not yet on the game grid
          types = ['I', 'O', 'Z', 'T', 'S', 'J', 'L']
          chosen_type = random.choice(types)
-         # Create a new Tetromino object off-screen with is_next=True
-         return Tetromino(chosen_type, self.grid_height, self.grid_width, is_next=True)
+         # Create next tetromino outside the game board (with is_next=True)
+         self.next_tetromino = Tetromino(chosen_type, 0, 0, True)
 
       def update_game_state(self):  # **
-         # transition the next tetromino to be the current one and generate a next tetromino
-         if self.current_tetromino is None:
-            self.current_tetromino = self.next_tetromino
-            self.next_tetromino = self.generate_next_tetromino()
-            self.current_tetromino.bottom_left_corner.y = self.grid_height - 1  # Start at top row
-            self.current_tetromino.bottom_left_corner.x = random.randint(0, self.grid_width - 4)  # Random x position
-
+          # transition the next tetromino to be the current one and generate a next tetromino
+          if self.current_tetromino is None:
+              self.current_tetromino = self.next_tetromino
+              self.next_tetromino = self.generate_next_tetromino()
+              self.current_tetromino.bottom_left_corner.y = self.grid_height - 1  # start at top row
+              self.current_tetromino.bottom_left_corner.x = random.randint(0, self.grid_width - 4)  # random x position
 
    # Method used for displaying the game grid
    def display(self):
