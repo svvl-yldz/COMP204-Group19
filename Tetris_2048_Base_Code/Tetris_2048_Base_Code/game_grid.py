@@ -140,6 +140,20 @@ class GameGrid:
       # return the game_over flag
       return self.game_over
 
+   def clearingRows(self):
+       row = 0
+       while (row < self.grid_height):
+          # check if the row is full
+          if all(self.tile_matrix[row]):
+             for element in self.tile_matrix[row]:
+                self.score += element.number
+             # remove the row from the game grid
+             self.tile_matrix = np.delete(self.tile_matrix, row, 0)
+             # add an empty row to the game grid
+             self.tile_matrix = np.insert(self.tile_matrix, -1, None, 0)
+          else:
+             row += 1
+
 #***
    def handle_free_tiles(self):
         # remove free tiles and update score
