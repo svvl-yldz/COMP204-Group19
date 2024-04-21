@@ -10,13 +10,12 @@ class Tetromino:
    grid_height, grid_width = None, None
 
    # A constructor for creating a tetromino with a given shape (type)
-   def __init__(self, type, grid_height, grid_width, is_next=False):
-      self.type = type
-      self.grid_height = grid_height
-      self.grid_width = grid_width
-      self.is_next = is_next  # indicates if this is the next tetromino
+   def __init__(self, shape):
+      self.type = shape  # set the type of this tetromino
+      self.rotate_count = 0
+      # determine the occupied (non-empty) cells in the tile matrix based on
+      # the shape of this tetromino (see the documentation given with this code)
       occupied_cells = []
-
       if self.type == 'I':
          n = 4  # n = number of rows = number of columns in the tile matrix
          # shape of the tetromino I in its initial rotation state
@@ -69,24 +68,18 @@ class Tetromino:
 
       # create a matrix of numbered tiles based on the shape of this tetromino
       self.tile_matrix = np.full((n, n), None)
-      # **
-      # the tile matrix with Tile objects at the occupied cell positions
-      for col_index, row_index in self.occupied_cells:
-         value = random.choice([2, 4])  # randomly assign a value of 2 or 4
-         if is_next:
-            position = Point(-1, -1)
-         else:
-            # positioning for active tetrominos on the grid
-            position = Point(self.bottom_left_corner.x + col_index,
-                             self.grid_height - 1 - row_index + self.bottom_left_corner.y)
-         self.tile_matrix[row_index][col_index] = Tile(value, position)
+      # create the four tiles (minos) of this tetromino and place these tiles
+      # into the tile matrix
+      for i in range(len(occupied_cells)):
+         col_index, row_index = occupied_cells[i][0], occupied_cells[i][1]
+         # create a tile for each occupied cell of this tetromino
+         self.tile_matrix[row_index][col_index] = Tile()
+      # initialize the position of this tetromino (as the bottom left cell in
+      # the tile matrix) with a random horizontal position above the game grid
+      self.bottom_left_cell = Point()
+      self.bottom_left_cell.y = Tetromino.grid_height - 1
+      self.bottom_left_cell.x = random.randint(0, Tetromino.grid_width - n)
 
-      if not is_next:
-         # setting the bottom left corner for active tetrominos
-         self.bottom_left_corner = Point(random.randint(0, self.grid_width - n), self.grid_height - 1)
-      else:
-         self.bottom_left_corner = Point(0, 0)
-#**
    # A method that computes and returns the position of the cell in the tile
    # matrix specified by the given row and column indexes
    def get_cell_position(self, row, col):
@@ -146,14 +139,7 @@ class Tetromino:
                if position.y < Tetromino.grid_height:
                   self.tile_matrix[row][col].draw(position)
 
-   def draw_preview(self, x, y):
-      # drawing the tetromino at the preview position (x, y)
-      n = len(self.tile_matrix)
-      for i in range(n):
-         for j in range(n):
-            if self.tile_matrix[i][j] is not None:
-               preview_pos = Point(x + j, y + (n - 1 - i))
-               self.tile_matrix[i][j].draw(preview_pos)
+
 
 
    # A method for moving this tetromino in a given direction by 1 on the grid
