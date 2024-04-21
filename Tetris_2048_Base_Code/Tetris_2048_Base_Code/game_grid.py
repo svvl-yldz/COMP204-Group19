@@ -186,6 +186,5 @@ class GameGrid:
 
    def update_game_state(self):
        # updating the game state by handling free tiles and dropping tiles
-       self.clearingRows()
        self.handle_free_tiles()
        self.drop_tiles()
