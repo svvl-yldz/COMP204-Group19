@@ -28,6 +28,8 @@ def start():
    Tetromino.grid_width = grid_w
    # create the game grid
    grid = GameGrid(grid_h, grid_w)
+
+   grid.clearingRows()
    # create the first tetromino to enter the game grid
    # by using the create_tetromino function defined below
    current_tetromino = create_tetromino()
@@ -76,6 +78,7 @@ def start():
             break
          # create the next tetromino to enter the game grid
          # by using the create_tetromino function defined below
+         grid.clearingRows()
          current_tetromino = grid.next_tetromino
          grid.current_tetromino = current_tetromino
          grid.next_tetromino = create_tetromino()
@@ -141,7 +144,6 @@ def display_game_menu(grid_height, grid_width):
          if mouse_x >= button_blc_x and mouse_x <= button_blc_x + button_w:
             if mouse_y >= button_blc_y and mouse_y <= button_blc_y + button_h:
                break  # break the loop to end the method and start the game
-
 
 # start() function is specified as the entry point (main function) from which
 # the program starts execution
