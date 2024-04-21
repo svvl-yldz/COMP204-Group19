@@ -70,15 +70,16 @@ class Tetromino:
       self.tile_matrix = np.full((n, n), None)
       # create the four tiles (minos) of this tetromino and place these tiles
       # into the tile matrix
-      for i in range(len(occupied_cells)):
-         col_index, row_index = occupied_cells[i][0], occupied_cells[i][1]
-         # create a tile for each occupied cell of this tetromino
-         self.tile_matrix[row_index][col_index] = Tile()
-      # initialize the position of this tetromino (as the bottom left cell in
-      # the tile matrix) with a random horizontal position above the game grid
-      self.bottom_left_cell = Point()
-      self.bottom_left_cell.y = Tetromino.grid_height - 1
-      self.bottom_left_cell.x = random.randint(0, Tetromino.grid_width - n)
+      for pos in self.occupied_tiles:  # **
+         col_index, row_index = pos
+         # assign a random value of 2 or 4 to the tile
+         value = random.choice([2, 4])
+         # calculating the position of the tile based on bottom_left_cell
+         position = Point(self.bottom_left_cell.x + col_index, self.bottom_left_cell.y + (n - 1) - row_index)
+         # creating the tile with the random value and position
+         self.tile_matrix[row_index][col_index] = Tile(position, value)
+
+   # **
 
    # A method that computes and returns the position of the cell in the tile
    # matrix specified by the given row and column indexes
